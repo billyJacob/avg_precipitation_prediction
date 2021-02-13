@@ -30,3 +30,26 @@ print(skew_data)
 histogram   =  dataset.hist()
 
 boxplot = dataset.plot(kind='box',subplots = True , layout=(3,4),sharex = False,sharey =False  )
+
+density = dataset.plot(kind='density',subplots = True , layout=(3,4),sharex = False,sharey =False  )
+
+correlations = dataset.corr() 
+fig  = plt.figure()
+ax = fig.add_subplot(111)
+cax = ax.matshow(correlations,vmin = -1 , vmax = 1)
+fig.colorbar(cax)
+plt.show()
+
+
+features = dataset.iloc[:,0].values
+
+
+label = dataset.iloc[:,8].values
+
+X_train, X_test, y_train, y_test = train_test_split(features, label, test_size = 0.2, random_state = 0)
+X_train= X_train.reshape(-1, 1)
+y_train= y_train.reshape(-1, 1)
+X_test = X_test.reshape(-1, 1)
+regr = linear_model.LinearRegression()
+
+regr.fit(X_train,y_train)
